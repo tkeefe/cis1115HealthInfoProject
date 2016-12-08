@@ -109,7 +109,13 @@ public class DAOHealthInfo {
     }
     
     public String orderByNameAgeA(){
-        myList.sort(Comparator.comparing(HealthInfo :: getName).thenComparing(HealthInfo::getAge).reversed());
+        myList.sort((HealthInfo h1, HealthInfo h2) -> {
+            if(h1.getName().equals(h2.getName())){
+                return Double.compare(h1.getAge(), h2.getAge());
+            } else {
+                return h2.getName().compareTo(h1.getName());
+            }
+        });
         return this.toString();
     }
     
@@ -119,6 +125,7 @@ public class DAOHealthInfo {
         double sum = 0;
         double avg = 0;
         int count = 0;
+        double total = 0;
         for(HealthInfo h : myList){
             if(h.getAge()<min){
                 min = h.getAge();
@@ -130,6 +137,11 @@ public class DAOHealthInfo {
             count++;
         }
         avg = sum/count;
+        for(HealthInfo h : myList){
+            total += Math.pow(h.getAge() - avg, 2);
+        }
+        double standardDeviation =Math.sqrt(total/(count - 1));
+        System.out.println("The standard deviation is " + standardDeviation);
         System.out.println("The max age is " + max);
         System.out.println("The min age is " + min);
         System.out.println("The average is " + avg);
