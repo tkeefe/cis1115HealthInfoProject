@@ -142,6 +142,7 @@ public class DAOHealthInfo {
         }
         double standardDeviation =Math.sqrt(total/(count - 1));
         System.out.println("The standard deviation is " + standardDeviation);
+        System.out.println("The sum is " + sum);
         System.out.println("The max age is " + max);
         System.out.println("The min age is " + min);
         System.out.println("The average is " + avg);
